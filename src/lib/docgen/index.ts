@@ -85,6 +85,10 @@ export class DocumentationGenerator {
     });
   }
 
+  private async generateTypeDocs(contents: RepoContent[]) {
+    return [];
+  }
+
   private findRoutes(content: string) {
     // Look for route patterns in Express/Next.js/etc
     const routes: string[] = [];
