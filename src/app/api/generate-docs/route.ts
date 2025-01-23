@@ -16,6 +16,12 @@ interface DocumentationContent {
   errorHandling: string;
 }
 
+interface TreeItem {
+  path?: string;
+  type?: string;
+  sha?: string;
+}
+
 function extractEndpoints(content: string, path: string) {
   const endpoints = [];
   
@@ -301,15 +307,18 @@ async function processRepository(repoUrl: string) {
     });
 
     const apiFiles = data.tree
-      .filter(item => {
-        const path = item.path.toLowerCase();
-        return item.type === 'blob' && 
-               path.endsWith('.ts') && 
-               (path.includes('/api/') || 
-                path.includes('/routes/') || 
-                path.includes('/controllers/'));
-      })
-      .slice(0, 15);
+    .filter((item: TreeItem) => {
+      // Early return if required properties are missing
+      if (!item.path || !item.type) return false;
+      
+      const path = item.path.toLowerCase();
+      return item.type === 'blob' && 
+             path.endsWith('.ts') && 
+             (path.includes('/api/') || 
+              path.includes('/routes/') || 
+              path.includes('/controllers/'));
+    })
+    .slice(0, 15);
 
     console.log(`Found ${apiFiles.length} API-related files`);
 
