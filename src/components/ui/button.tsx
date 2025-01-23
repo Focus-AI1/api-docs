@@ -28,6 +28,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: "default",
       size: "default",
+      icon: "h-10 w-10",  // Add this line to match shadcn's standard icon button size
     },
   }
 )
