@@ -7,14 +7,20 @@ const nextConfig = {
 
   // Configure for Turbopack
   experimental: {
-    turbo: {}
+    turbo: {},
+    serverActions: {
+      bodySizeLimit: '10mb',  // Increased to 10MB
+    }
   },
 
   // Add ESLint config
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
+  },
+
+  // Add Vercel function configuration
+  functions: {
+    maxDuration: 300  // 5 minutes is good for complex repos
   }
 }
 
