@@ -325,12 +325,18 @@ async function processRepository(repoUrl: string) {
     const processedFiles = [];
     for (const file of apiFiles) {
       try {
+        // Add type check for path
+        if (!file.path) {
+          console.log('Skipping file with undefined path');
+          continue;
+        }
+    
         console.log(`Processing file: ${file.path}`);
         
         const { data: fileData } = await octokit.rest.repos.getContent({
           owner,
           repo,
-          path: file.path,
+          path: file.path,  // TypeScript now knows this is safe
         });
 
         if ('content' in fileData) {
