@@ -31,7 +31,6 @@ interface SheetPortalProps
 
 const SheetPortal = ({
   position,
-  className,
   children,
   ...props
 }: SheetPortalProps) => (
