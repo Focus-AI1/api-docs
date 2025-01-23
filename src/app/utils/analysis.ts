@@ -275,12 +275,18 @@ const generateUsageConsiderations = (analysis: any) => {
 export const generateExamples = (endpoint: Endpoint, analysis: any) => {
   const { context, analysis: endpointAnalysis } = analysis;
   
-  return endpoint.methods?.map(method => ({
+  // Guard against undefined methods
+  if (!endpoint.methods || endpoint.methods.length === 0) {
+    return [];
+  }
+
+  return endpoint.methods.map(method => ({
     method,
     examples: {
-      curl: generateCurlExample(method, endpoint.path, endpointAnalysis),
-      js: generateJavaScriptExample(method, endpoint.path, endpointAnalysis),
-      python: generatePythonExample(method, endpoint.path, endpointAnalysis)
+      // Provide empty string fallback for undefined path
+      curl: generateCurlExample(method, endpoint.path ?? '', endpointAnalysis),
+      js: generateJavaScriptExample(method, endpoint.path ?? '', endpointAnalysis),
+      python: generatePythonExample(method, endpoint.path ?? '', endpointAnalysis)
     }
   }));
 };
