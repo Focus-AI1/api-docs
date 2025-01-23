@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 
 import { cn } from "@/lib/utils"
@@ -50,12 +49,6 @@ function Calendar({
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
         ...classNames,
-      }}
-      components={{
-        NavigationButton: (props: any) => {
-          if (props.dir === 'previous') return <ChevronLeft className="h-4 w-4" />
-          return <ChevronRight className="h-4 w-4" />
-        }
       }}
       {...props}
     />
