@@ -41,23 +41,23 @@ export class DocumentationGenerator {
     });
 
     // Get content for each file
-    for (const item of tree.tree) {
-      if (item.type === 'blob') {
-        const { data } = await this.octokit.rest.repos.getContent({
-          owner,
-          repo,
-          path: item.path,
-        });
+for (const item of tree.tree) {
+  if (item.type === 'blob' && item.path) {  // Add path check here
+    const { data } = await this.octokit.rest.repos.getContent({
+      owner,
+      repo,
+      path: item.path,
+    });
 
-        if ('content' in data) {
-          contents.push({
-            path: item.path,
-            content: Buffer.from(data.content, 'base64').toString(),
-            type: 'file'
-          });
-        }
-      }
+    if ('content' in data) {
+      contents.push({
+        path: item.path,
+        content: Buffer.from(data.content, 'base64').toString(),
+        type: 'file'
+      });
     }
+  }
+}
 
     return contents;
   }
