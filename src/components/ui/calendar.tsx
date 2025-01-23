@@ -52,8 +52,10 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        PrevButton: () => <ChevronLeft className="h-4 w-4" />,
-        NextButton: () => <ChevronRight className="h-4 w-4" />,
+        NavigationButton: (props: any) => {
+          if (props.dir === 'previous') return <ChevronLeft className="h-4 w-4" />
+          return <ChevronRight className="h-4 w-4" />
+        }
       }}
       {...props}
     />
