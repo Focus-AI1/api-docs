@@ -11,18 +11,20 @@ export default function DocsLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen">
-      {/* Mobile Navigation Trigger */}
-      <Sheet>
-        <SheetTrigger asChild className="lg:hidden fixed top-4 left-4">
-          <Button variant="outline" size="icon">
-            <Menu className="h-4 w-4" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-64">
-          <DocsSidebar />
-        </SheetContent>
-      </Sheet>
+    <div className="flex min-h-screen flex-col lg:flex-row">
+      {/* Mobile Header */}
+      <div className="lg:hidden w-full border-b p-4">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Menu className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64">
+            <DocsSidebar />
+          </SheetContent>
+        </Sheet>
+      </div>
 
       {/* Desktop Sidebar */}
       <aside className="hidden lg:block w-64 border-r h-screen sticky top-0">
@@ -30,7 +32,7 @@ export default function DocsLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto p-4 lg:p-8">
         {children}
       </main>
     </div>
